@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sign in to Campus Care — University Health & Wellness Portal. Separate role-based access for Students and Clinic Administrators." />
+  <title>Sign In — Campus Care University Health Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/login.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>" />
+</head>
+<body class="login-body">
+
+  <!-- Minimal Brand Header -->
+  <header class="login-header">
+    <div class="login-header-inner">
+      <a href="/" class="login-brand" title="Return to Health Center Homepage">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-name">Campus Care</span>
+          <span class="brand-tag">Authentication Portal</span>
+        </div>
+      </a>
+
+      <div class="login-header-actions">
+        <!-- Live Status Pill -->
+        <div class="login-db-badge" id="login-db-status" title="Connection Status">
+          <span class="pulse-dot-green"></span>
+          <span id="login-db-text">System Online</span>
+        </div>
+
+        <!-- Back to main portal -->
+        <a href="/" class="login-back-btn">
+          <span>← Back to Health Center</span>
+        </a>
+
+        <!-- Dark/Light Mode Switcher -->
+        <button type="button" class="theme-toggle-btn" id="login-theme-toggle" aria-label="Toggle theme">
+          <span id="login-theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Centered Login Card -->
+  <main class="login-main-container">
+    <div class="login-card-wrapper">
+      
+      <!-- Top Decorative Glow -->
+      <div class="card-glow-element" id="card-glow"></div>
+
+      <div class="login-card">
+        
+        <!-- Header Info -->
+        <div class="login-card-header">
+          <div class="role-badge" id="role-pill-badge">
+            <span id="role-badge-icon">🎓</span>
+            <span id="role-badge-text">Student Portal Access</span>
+          </div>
+          <h1 class="login-title" id="login-title">Sign In to Campus Care</h1>
+          <p class="login-subtitle" id="login-subtitle">
+            Choose your login type below to access student health records, pharmacy tokens, or clinic admin operations.
+          </p>
+        </div>
+
+        <!-- Role Selector Switcher -->
+        <div class="role-selector" role="tablist" aria-label="Login Role Selection">
+          <button type="button" class="role-tab active" id="tab-student" role="tab" aria-selected="true" data-role="student">
+            <span class="tab-icon">🎓</span>
+            <span class="tab-label">Student / Patient</span>
+          </button>
+          <button type="button" class="role-tab" id="tab-admin" role="tab" aria-selected="false" data-role="admin">
+            <span class="tab-icon">🛡️</span>
+            <span class="tab-label">Staff & Admin</span>
+          </button>
+        </div>
+
+        <!-- Quick 1-Click Demo Fillers -->
+        <div class="demo-credentials-box">
+          <div class="demo-box-label">
+            <span>⚡ Quick Demo Logins (Click to autofill):</span>
+          </div>
+          <div class="demo-pills-row">
+            <button type="button" class="demo-chip" id="demo-student-btn" title="Click to autofill Alex Rivera (Student)">
+              <span>👤 Student: <strong>Alex Rivera</strong></span>
+            </button>
+            <button type="button" class="demo-chip" id="demo-admin-btn" title="Click to autofill Dr. Sarah Jenkins (Admin)">
+              <span>🛡️ Admin: <strong>Dr. Jenkins</strong></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedback Alert Banner -->
+        <div class="login-alert" id="login-alert" style="display: none;" role="alert">
+          <span class="alert-icon" id="alert-icon">⚠️</span>
+          <span class="alert-msg" id="alert-msg"></span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="auth-form" class="auth-form" novalidate>
+          
+          <!-- Student Identifier / Admin Identifier -->
+          <div class="form-group">
+            <label for="auth-identifier" id="label-identifier">University Email or Student ID</label>
+            <div class="input-with-icon">
+              <span class="input-icon" id="identifier-icon">📧</span>
+              <input 
+                type="text" 
+                id="auth-identifier" 
+                class="form-input" 
+                placeholder="alex.rivera@campus.edu or U-2024-88419" 
+                autocomplete="username" 
+                required 
+              />
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group">
+            <div class="label-row">
+              <label for="auth-password" id="label-password">Student Portal Password</label>
+              <button type="button" class="forgot-link" id="demo-hint-btn">Forgot / Demo Hint</button>
+            </div>
+            <div class="input-with-icon">
+              <span class="input-icon">🔒</span>
+              <input 
+                type="password" 
+                id="auth-password" 
+                class="form-input" 
+                placeholder="••••••••" 
+                autocomplete="current-password" 
+                required 
+              />
+              <button type="button" class="toggle-password-btn" id="toggle-password-btn" aria-label="Toggle password visibility">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember Me & Redirect Info -->
+          <div class="form-options">
+            <label class="remember-checkbox-label">
+              <input type="checkbox" id="remember-me" checked />
+              <span>Remember this device</span>
+            </label>
+            <span class="role-target-hint" id="role-target-hint">Target: Student Portal (/)</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="login-submit-btn" id="login-submit-btn">
+            <span class="btn-text" id="submit-btn-text">Sign In to Student Portal →</span>
+            <span class="btn-spinner" id="submit-btn-spinner" style="display: none;"></span>
+          </button>
+        </form>
+
+        <!-- New Student Registration Toggle (Shown only in Student Tab) -->
+        <div class="register-toggle-section" id="student-register-box">
+          <div class="divider"><span>or</span></div>
+          <button type="button" class="btn-toggle-register" id="toggle-register-btn">
+            ➕ Register as New Student
+          </button>
+          
+          <!-- Registration Drawer Form -->
+          <form id="register-form" class="register-form" style="display: none;">
+            <h3 class="reg-title">Create Student Health Record</h3>
+            <div class="reg-inputs-grid">
+              <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" class="form-input" placeholder="e.g. Jordan Lee" required />
+              </div>
+              <div class="form-group">
+                <label for="reg-id">Student ID</label>
+                <input type="text" id="reg-id" class="form-input" placeholder="e.g. U-2024-99120" required />
+              </div>
+              <div class="form-group">
+                <label for="reg-email">University Email</label>
+                <input type="email" id="reg-email" class="form-input" placeholder="e.g. jordan.lee@campus.edu" required />
+              </div>
+              <div class="form-group">
+                <label for="reg-dept">Major / Department</label>
+                <input type="text" id="reg-dept" class="form-input" placeholder="e.g. Bioengineering" />
+              </div>
+              <div class="form-group full-width">
+                <label for="reg-password">Create Password</label>
+                <input type="password" id="reg-password" class="form-input" placeholder="Min 6 characters" required />
+              </div>
+            </div>
+            <div class="reg-actions">
+              <button type="submit" class="login-submit-btn btn-sm">Complete Registration ✓</button>
+              <button type="button" class="btn-cancel-reg" id="cancel-register-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Security / Relational DB Footer -->
+        <div class="login-footer-meta">
+          <div class="security-pill">
+            <span>🛡️ FERPA & HIPAA Medical Confidentiality • SQLite Database</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Tips Card Below -->
+      <div class="login-helper-card">
+        <div class="helper-item">
+          <strong>🎓 Students</strong>: Book appointments, view your digital health card, pick up dispensary tokens.
+        </div>
+        <div class="helper-item">
+          <strong>🛡️ Administrators</strong>: Manage doctors on duty, walk-in triage, medicine inventory, and emergency dispatches.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Login Logic Script -->
+  <script type="module" src="/src/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Campus Health Corner - Official University Health & Wellness Portal. Access 24/7 emergency response, doctor and counseling appointments, dispensary medicine tracker, and student health records." />
+  <meta name="keywords" content="campus health, university medical center, college counseling, student healthcare, AED locator, emergency SOS, campus clinic" />
+  <meta name="author" content="University Health Services" />
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Campus Care — University Health & Wellness Portal" />
+  <meta property="og:description" content="24/7 Comprehensive healthcare, confidential mental counseling, and urgent care dedicated to university students and faculty." />
+  <meta property="og:image" content="/images/hero-clinic.jpg" />
+  <meta property="og:type" content="website" />
+
+  <title>Campus Care — University Health & Wellness Portal</title>
+  
+  <!-- Preconnect to Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar (Live Triage Ticker) -->
+  <aside class="top-notice-bar" aria-label="Campus Clinic Live Status">
+    <div class="container top-notice-inner">
+      <div class="live-triage-pill">
+        <span class="pulse-dot"></span>
+        <span><strong>Main Health Center Open 24/7</strong> • Walk-In Wait: ~7 mins • Block C Triage Active</span>
+      </div>
+      <div class="top-hotlines">
+        <a href="/login.html" class="top-hotline-item login-header-link" style="color: #c084fc; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">🔑 <span>Sign In / Switch Role</span></a>
+        <a href="/admin.html" class="top-hotline-item admin-header-link" style="color: #38bdf8; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">⚙️ <span>Staff & Admin Portal</span></a>
+        <span class="top-hotline-item urgent">🚨 Emergency: <strong>Ext. 911 / (555) 019-0911</strong></span>
+        <span class="top-hotline-item">📞 24/7 Nurse: <strong>Ext. 4110</strong></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo" aria-label="Campus Care — University Health & Wellness Portal">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Campus Care</span>
+          <span class="brand-subtitle">University Health & Wellness Portal</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main Navigation">
+        <a href="#services" class="nav-link">Clinics</a>
+        <a href="#professionals" class="nav-link">Healthcare Team</a>
+        <a href="#mindcare" class="nav-link">MindCare</a>
+        <a href="#pharmacy" class="nav-link">Dispensary</a>
+        <a href="#campus-map" class="nav-link">AED Map</a>
+        <a href="#calculators" class="nav-link">Vitals</a>
+        <a href="#faqs" class="nav-link">FAQs</a>
+        <div class="mobile-nav-extra">
+          <a href="/admin.html" class="nav-link mobile-nav-item">⚙️ Staff & Admin Portal</a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- SOS Trigger Button -->
+        <button type="button" class="sos-nav-btn trigger-sos-btn" id="nav-sos-button" aria-label="Trigger Campus Emergency SOS">
+          <span class="sos-pulse-ring"></span>
+          <span>🚨 SOS</span>
+        </button>
+
+        <!-- Admin Portal Direct Button -->
+        <a href="/admin.html" class="btn btn-secondary btn-sm admin-portal-btn" id="nav-admin-btn" title="Open Clinic Staff & Database Admin Portal">
+          ⚙️ Admin
+        </a>
+
+        <!-- Student ID Portal Pill -->
+        <div class="student-portal-pill" id="student-nav-profile-badge" title="View Student Health Card">
+          <span class="user-avatar-circle">A</span>
+          <div class="user-nav-meta">
+            <span class="user-name">Alex Rivera</span>
+            <span class="user-role">ID: U-88419</span>
+          </div>
+        </div>
+
+        <!-- Auth / Switch Button -->
+        <a href="/login.html" class="btn btn-secondary btn-sm" id="nav-auth-link" title="Sign In or Switch Role" style="padding: 0.45rem 0.75rem; font-weight: 600;">
+          🔑 <span id="nav-auth-link-text">Sign In</span>
+        </a>
+
+        <!-- Dark/Light Mode Switcher -->
+        <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Dark and Light Mode">
+          <span id="theme-icon"></span>
+        </button>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button type="button" class="mobile-menu-toggle-btn" id="mobile-menu-toggle-btn" aria-label="Toggle Navigation Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         Hero Section
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-badge-pill">
+              <span>🛡️ Accredited University Health Facility</span>
+            </div>
+            <h1 class="hero-title">
+              Your Health, Well-being & Care — <span class="gradient-text">Right On Campus.</span>
+            </h1>
+            <p class="hero-subtitle">
+              Comprehensive medical clinics, confidential mental health counseling, walk-in urgent care, and pharmacy services. 100% free with your student ID, safe, and FERPA/HIPAA protected.
+            </p>
+
+            <!-- Global Search Bar -->
+            <div class="hero-search-wrapper">
+              <div class="search-input-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="global-hero-search-input" placeholder="Search symptoms, doctors, medicines, AED locations, or excuses..." />
+              </div>
+              <button type="button" class="btn btn-primary" id="global-hero-search-submit">
+                Search
+              </button>
+            </div>
+
+            <!-- Quick Search Tags -->
+            <div class="hero-quick-tags">
+              <span>Popular:</span>
+              <button type="button" class="hero-quick-tag" data-tag="Fever & Infection">🤒 Fever & Cold</button>
+              <button type="button" class="hero-quick-tag" data-tag="Anxiety & Stress">🧠 Exam Anxiety</button>
+              <button type="button" class="hero-quick-tag" data-tag="Sports Injuries">🏃 Sprain & Physio</button>
+              <button type="button" class="hero-quick-tag" data-tag="Paracetamol">💊 Paracetamol</button>
+              <button type="button" class="hero-quick-tag" data-tag="Medical Excuse">📝 Sick Leave</button>
+              <button type="button" class="hero-quick-tag" data-tag="AED">⚡ Defibrillator</button>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="#professionals" class="btn btn-primary btn-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Meet Healthcare Team
+              </a>
+              <button type="button" class="btn btn-emergency btn-lg trigger-sos-btn">
+                🚨 Trigger Campus SOS
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-visual-card">
+            <div class="hero-main-photo-wrap">
+              <img src="/images/hero-clinic.jpg" alt="University Campus Health & Wellness Center Entrance" class="hero-main-photo" />
+            </div>
+
+            <div class="hero-floating-glass-card">
+              <div class="floating-icon">🩺</div>
+              <div class="floating-text">
+                <strong>24/7 First Response</strong>
+                <span>Paramedic ambulance station on standby at West Wing Quad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Stats Band -->
+        <div class="hero-stats-band">
+          <div class="stat-item">
+            <div class="stat-icon-wrap blue">👥</div>
+            <div>
+              <div class="stat-number">18,500+</div>
+              <div class="stat-label">Students & Staff Supported</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon-wrap emerald">⏱️</div>
+            <div>
+              <div class="stat-number">&lt; 3 Mins</div>
+              <div class="stat-label">Average Campus SOS Dispatch</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon-wrap teal">🔒</div>
+            <div>
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Confidential & Zero Co-Pay</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon-wrap red">🏥</div>
+            <div>
+              <div class="stat-number">24/7/365</div>
+              <div class="stat-label">Continuous Urgent Care Gate 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Campus Emergency SOS & Urgent Care Hub
+         ========================================================================== -->
+    <section class="section-padding emergency-section" id="emergency">
+      <div class="container">
+        <div class="emergency-banner-card">
+          <div class="emergency-banner-content">
+            <span class="emergency-badge urgent">URGENT CARE PROTOCOL</span>
+            <h3>Experiencing a Medical or Mental Crisis on Campus?</h3>
+            <p>
+              Do not wait. Hit the Emergency SOS button immediately. Our GPS-linked dispatcher instantly notifies Campus Paramedics, Police Safety Officers, and the on-duty Emergency Physician.
+            </p>
+          </div>
+          <div class="emergency-banner-actions">
+            <button type="button" class="btn btn-white btn-lg trigger-sos-btn">
+              🚨 Initiate SOS Alert
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg" id="open-first-aid-guide">
+              🩹 First Aid / CPR Steps
+            </button>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-badge urgent">Direct Emergency Speed-Dials</span>
+          <h2 class="section-title">24/7 Campus & City Emergency Network</h2>
+          <p class="section-subtitle">
+            All campus emergency numbers are toll-free and reachable from any hall phone, blue light station, or cell.
+          </p>
+        </div>
+
+        <!-- Dynamic Emergency Contacts Grid -->
+        <div class="emergency-contacts-grid" id="emergency-contacts-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Campus Medical Clinics & Specialized Care Units
+         ========================================================================== -->
+    <section class="section-padding clinics-section" id="services" style="background: var(--bg-tertiary);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Comprehensive Campus Care</span>
+          <h2 class="section-title">Specialized Clinics & Outpatient Centers</h2>
+          <p class="section-subtitle">
+            Modern, student-focused health units located conveniently across campus with zero co-pays and rapid walk-in triage.
+          </p>
+        </div>
+
+        <div class="clinics-cards-grid">
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(2, 132, 199, 0.12); color: var(--primary);">🩺</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip open">● Open Walk-In</span>
+              <h3>General Outpatient & Triage</h3>
+              <p>Primary care for seasonal colds, viral fevers, prescription renewals, flu diagnostics, and physical health screenings.</p>
+              <div class="clinic-card-meta">
+                <span>📍 Block C, Level 1</span>
+                <span>⏰ Mon - Fri: 8:00 AM - 6:00 PM</span>
+              </div>
+              <a href="#professionals" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">View Physicians & Slots →</a>
+            </div>
+          </div>
+
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(139, 92, 246, 0.12); color: var(--accent-purple);">🧠</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip open">● 100% Confidential</span>
+              <h3>MindCare Psychological Center</h3>
+              <p>Individual psychotherapy, exam stress relief, anxiety coaching, grief counseling, and 24/7 student crisis peer support.</p>
+              <div class="clinic-card-meta">
+                <span>📍 Wellness Pavilion, Suite 204</span>
+                <span>⏰ Mon - Sat: 9:00 AM - 5:00 PM</span>
+              </div>
+              <a href="#mindcare" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Explore MindCare →</a>
+            </div>
+          </div>
+
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald);">💊</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip open">● Express Counter</span>
+              <h3>Campus Dispensary & Pharmacy</h3>
+              <p>Free OTC essentials with Student ID, subsidized prescription fulfillment, rapid digital QR pickup, and first-aid kits.</p>
+              <div class="clinic-card-meta">
+                <span>📍 Health Block B, Ground Floor</span>
+                <span>⏰ Mon - Sat: 8:30 AM - 8:00 PM</span>
+              </div>
+              <a href="#pharmacy" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Check Medicine Stock →</a>
+            </div>
+          </div>
+
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(245, 158, 11, 0.12); color: #d97706;">🏃</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip open">● By Appointment</span>
+              <h3>Sports Medicine & Physiotherapy</h3>
+              <p>Varsity athletic rehabilitation, repetitive strain injury (RSI) therapy, joint mobilization, and postural ergonomics.</p>
+              <div class="clinic-card-meta">
+                <span>📍 Recreation Center, Rehab Wing R-12</span>
+                <span>⏰ Mon, Wed, Fri: 8:00 AM - 4:00 PM</span>
+              </div>
+              <a href="#professionals" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Physiotherapy & Rehab Team →</a>
+            </div>
+          </div>
+
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(236, 72, 153, 0.12); color: #db2777);">🌸</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip open">● Free & Private</span>
+              <h3>Women’s Health & Reproductive Care</h3>
+              <p>Confidential consultations, menstrual healthcare, PCOS management, preventative screenings, and free wellness supplies.</p>
+              <div class="clinic-card-meta">
+                <span>📍 Block C, Private Suite 108</span>
+                <span>⏰ Mon, Wed, Thu: 9:30 AM - 3:30 PM</span>
+              </div>
+              <a href="#professionals" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Consult Specialists →</a>
+            </div>
+          </div>
+
+          <div class="clinic-unit-card">
+            <div class="clinic-card-icon" style="background: rgba(239, 68, 68, 0.12); color: var(--emergency);">🚨</div>
+            <div class="clinic-card-body">
+              <span class="clinic-status-chip urgent">● Always Open 24/7</span>
+              <h3>Gate 2 Urgent Care & Ambulance Bay</h3>
+              <p>24/7 emergency response, immediate trauma triage, wound suturing, defibrillator (AED) dispatch, and paramedic standby.</p>
+              <div class="clinic-card-meta">
+                <span>📍 West Wing Quad, Gate 2</span>
+                <span>⏰ 24 Hours / 7 Days / 365 Days</span>
+              </div>
+              <a href="#emergency" class="btn btn-emergency btn-sm" style="margin-top: 1rem;">Emergency SOS Details →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Campus Clinics & Healthcare Professionals Directory
+         ========================================================================== -->
+    <section class="section-padding" id="professionals">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Qualified Medical Practitioners</span>
+          <h2 class="section-title">Meet Our Campus Healthcare Team</h2>
+          <p class="section-subtitle">
+            Board-certified physicians, clinical psychologists, physical therapists, and family nurses committed to your well-being.
+          </p>
+        </div>
+
+        <!-- Department Filter Tabs -->
+        <div class="dept-filter-tabs">
+          <button type="button" class="dept-filter-tab active" data-category="all">All Specialties</button>
+          <button type="button" class="dept-filter-tab" data-category="general">🩺 General Medicine & Triage</button>
+          <button type="button" class="dept-filter-tab" data-category="mental">🧠 Mental Health & Counseling</button>
+          <button type="button" class="dept-filter-tab" data-category="physio">🏃 Sports Physiotherapy</button>
+          <button type="button" class="dept-filter-tab" data-category="dental">🦷 Dental Care</button>
+          <button type="button" class="dept-filter-tab" data-category="women">🌸 Women's Health</button>
+        </div>
+
+        <!-- Doctor Cards Grid -->
+        <div class="professionals-grid" id="professionals-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         MindCare & Student Mental Health Corner
+         ========================================================================== -->
+    <section class="section-padding mindcare-section" id="mindcare">
+      <div class="container">
+        <div class="mindcare-grid">
+          <div class="mindcare-intro">
+            <span class="section-badge" style="background: var(--accent-purple-light); color: var(--accent-purple);">
+              MindCare Mental Health Initiative
+            </span>
+            <h2 class="section-title">You Are Never Alone. Confidential Support, Always.</h2>
+            <p class="section-subtitle">
+              College life can be exhilarating, but exam pressure, loneliness, imposter syndrome, and burnout are real. MindCare provides compassionate, barrier-free psychological support for every student.
+            </p>
+
+            <div class="mindcare-features-list">
+              <div class="mindcare-feature-row">
+                <div class="feature-bullet-icon">🔒</div>
+                <div class="feature-bullet-text">
+                  <h4>100% Confidential Guarantee</h4>
+                  <p>Protected under federal HIPAA laws. Your sessions are never disclosed to professors, parents, or academic transcripts.</p>
+                </div>
+              </div>
+              <div class="mindcare-feature-row">
+                <div class="feature-bullet-icon">🎟️</div>
+                <div class="feature-bullet-text">
+                  <h4>10 Free Individual Sessions / Year</h4>
+                  <p>Fully funded through student wellness fees with zero co-pays or hidden insurance deductibles.</p>
+                </div>
+              </div>
+              <div class="mindcare-feature-row">
+                <div class="feature-bullet-icon">🤝</div>
+                <div class="feature-bullet-text">
+                  <h4>24/7 Peer Crisis Hotline & Safe Lounge</h4>
+                  <p>Drop into the Wellness Pavilion for tea, nap pods, or talk to certified student peer supporters.</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-primary" id="open-peer-chat-btn">
+                💬 Chat with Anonymous Peer Counselor
+              </button>
+              <a href="#professionals" class="btn btn-secondary">
+                Dr. Elena Rostova Consultation Hours →
+              </a>
+            </div>
+          </div>
+
+          <div class="mindcare-img-wrap">
+            <img src="/images/counseling-support.jpg" alt="Student receiving compassionate mental health counseling in cozy wellness office" class="mindcare-img" />
+          </div>
+        </div>
+
+        <!-- Interactive Self-Assessment Quiz & Guided Breathing -->
+        <div class="mindcare-interactive-row">
+          <!-- Quiz Card -->
+          <div class="assessment-card">
+            <div class="card-title-bar">
+              <span style="font-size: 1.5rem;">📋</span>
+              <div>
+                <h3>Student Wellness & Stress Check (PHQ-4)</h3>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Confidential 60-second clinical screening</span>
+              </div>
+            </div>
+
+            <form id="mindcare-quiz-form">
+              <div id="quiz-questions-list"></div>
+              <button type="submit" class="btn btn-primary" id="calculate-quiz-score-btn" style="width: 100%; margin-top: 1rem;">
+                Calculate Confidential Score
+              </button>
+            </form>
+
+            <div class="quiz-results-card" id="quiz-results-card" style="display: none;">
+              <div class="score-display-ring">
+                <div class="score-number" id="quiz-score-value">0 / 12</div>
+                <span class="score-tier-badge" id="quiz-score-badge">Evaluating...</span>
+              </div>
+              <p id="quiz-score-advice" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;"></p>
+              <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary" id="quiz-action-btn">
+                  View Counseling Locations & Team
+                </button>
+                <button type="button" class="btn btn-secondary" id="retake-quiz-btn">
+                  Retake Check
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4-7-8 Guided Breathing Card -->
+          <div class="breathing-card">
+            <div class="card-title-bar">
+              <span style="font-size: 1.5rem;">🫁</span>
+              <div>
+                <h3>4-7-8 Calm Breathing Pacer</h3>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Scientifically proven to reduce acute anxiety in 2 minutes</span>
+              </div>
+            </div>
+
+            <div class="breathing-box">
+              <div class="breathing-circle-wrapper">
+                <div class="breathing-circle" id="breathing-circle-pacer"></div>
+                <div class="breathing-timer-count" id="breathing-timer-count">Ready</div>
+              </div>
+              <p class="breathing-instruction" id="breathing-instruction-text">
+                Click Start to begin 4-7-8 calming breathwork
+              </p>
+              <button type="button" class="btn btn-secondary btn-lg" id="start-breathing-btn" style="margin-top: 1.5rem;">
+                ▶ Begin Breathwork
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Campus Dispensary & First-Aid Inventory Tracker
+         ========================================================================== -->
+    <section class="section-padding" id="pharmacy">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" style="background: var(--accent-teal-light); color: var(--accent-teal);">Campus Dispensary</span>
+          <h2 class="section-title">Medicine & First-Aid Availability Tracker</h2>
+          <p class="section-subtitle">
+            Check real-time stock levels of essential medications, OTC fever tablets, asthma inhalers, and sanitary supplies. Free with Student ID.
+          </p>
+        </div>
+
+        <div class="pharmacy-toolbar">
+          <div class="pharmacy-search-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="pharmacy-search-input" placeholder="Search medicines by name or condition (e.g. Paracetamol, Asthma, Allergy)..." />
+          </div>
+
+          <div class="pharmacy-chips-row">
+            <button type="button" class="pharmacy-filter-chip active" data-category="all">All Items</button>
+            <button type="button" class="pharmacy-filter-chip" data-category="Pain & Fever">Fever & Pain</button>
+            <button type="button" class="pharmacy-filter-chip" data-category="Allergy & Cold">Cold & Allergy</button>
+            <button type="button" class="pharmacy-filter-chip" data-category="First Aid">First Aid & Bandages</button>
+            <button type="button" class="pharmacy-filter-chip" data-category="Reproductive">Reproductive Care</button>
+            <button type="button" class="pharmacy-filter-chip" data-category="Hydration">Hydration & ORS</button>
+          </div>
+        </div>
+
+        <!-- Pharmacy Grid -->
+        <div class="pharmacy-items-grid" id="pharmacy-items-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Interactive Campus Medical Map & AED Locator
+         ========================================================================== -->
+    <section class="section-padding" id="campus-map" style="background: var(--bg-tertiary);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Life-Saving Equipment Map</span>
+          <h2 class="section-title">Campus AED & First-Aid Locator</h2>
+          <p class="section-subtitle">
+            Locate nearest Automated External Defibrillators (AED), 24/7 first-aid trauma kiosks, and ambulance access points across campus quads.
+          </p>
+        </div>
+
+        <div class="map-layout-grid">
+          <!-- Interactive Map Viewport -->
+          <div class="map-viewport-container">
+            <!-- Simulated Campus Vector Map Background -->
+            <svg class="campus-vector-map-bg" viewBox="0 0 800 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(148, 163, 184, 0.15)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="800" height="500" fill="url(#grid-pattern)"/>
+              
+              <!-- Roads / Walkways -->
+              <path d="M 50 250 Q 250 220 400 240 T 750 260" stroke="#cbd5e1" stroke-width="24" fill="none" opacity="0.6"/>
+              <path d="M 400 30 L 400 480" stroke="#cbd5e1" stroke-width="20" fill="none" opacity="0.6"/>
+              <path d="M 180 80 L 620 420" stroke="#cbd5e1" stroke-width="14" fill="none" opacity="0.4"/>
+              
+              <!-- Campus Green Lawns -->
+              <rect x="120" y="100" width="180" height="120" rx="20" fill="#10b981" opacity="0.12"/>
+              <rect x="450" y="80" width="220" height="140" rx="20" fill="#10b981" opacity="0.12"/>
+              <rect x="220" y="280" width="200" height="150" rx="20" fill="#10b981" opacity="0.12"/>
+              <circle cx="400" cy="240" r="45" fill="#0284c7" opacity="0.15"/>
+              
+              <!-- Campus Zone Labels -->
+              <text x="140" y="140" fill="#64748b" font-size="12" font-weight="bold">NORTH RESIDENCE QUAD</text>
+              <text x="470" y="120" fill="#64748b" font-size="12" font-weight="bold">SCIENCE & ENGINEERING</text>
+              <text x="240" y="320" fill="#64748b" font-size="12" font-weight="bold">STUDENT UNION & COMMONS</text>
+              <text x="560" y="380" fill="#64748b" font-size="12" font-weight="bold">ATHLETICS & RECREATION</text>
+              <text x="360" y="245" fill="#0284c7" font-size="13" font-weight="800">CENTRAL PLAZA</text>
+            </svg>
+
+            <!-- Dynamic Pins Layer -->
+            <div class="campus-interactive-pins" id="campus-map-interactive-layer"></div>
+          </div>
+
+          <!-- Spot Details Drawer -->
+          <div class="map-spot-drawer">
+            <div class="map-toolbar-chips">
+              <button type="button" class="map-filter-btn active" data-map-filter="all">All Locations</button>
+              <button type="button" class="map-filter-btn" data-map-filter="aed">⚡ AED Units</button>
+              <button type="button" class="map-filter-btn" data-map-filter="kiosk">🩹 First Aid Kiosks</button>
+              <button type="button" class="map-filter-btn" data-map-filter="clinic">🏥 Clinics</button>
+            </div>
+
+            <div id="map-spot-details-panel"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Student Health Vitals & Lifestyle Calculators
+         ========================================================================== -->
+    <section class="section-padding" id="calculators">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Student Lifestyle Metrics</span>
+          <h2 class="section-title">Personal Health & Vitals Calculators</h2>
+          <p class="section-subtitle">
+            Understand your body mass index, optimal daily water intake during study sessions, and recovery targets.
+          </p>
+        </div>
+
+        <div class="calculators-grid">
+          <!-- BMI Calculator -->
+          <div class="calc-card">
+            <div class="card-title-bar">
+              <span style="font-size: 1.5rem;">⚖️</span>
+              <div>
+                <h3>Student BMI & Wellness Calculator</h3>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Calibrated for collegiate male & female physiological ranges (18–28 yrs)</span>
+              </div>
+            </div>
+
+            <form id="bmi-calculator-form">
+              <!-- Gender / Biological Sex Calibration -->
+              <div class="form-group">
+                <label>Biological Sex & Category Calibration:</label>
+                <div class="gender-toggle-wrap">
+                  <button type="button" class="gender-toggle-btn active" id="btn-gender-male" data-gender="male">
+                    <span>👨</span>
+                    <span>Male (Collegiate)</span>
+                  </button>
+                  <button type="button" class="gender-toggle-btn" id="btn-gender-female" data-gender="female">
+                    <span>👩</span>
+                    <span>Female (Collegiate)</span>
+                  </button>
+                </div>
+                <input type="hidden" id="bmi-gender-input" value="male" />
+              </div>
+
+              <div class="calc-form-row">
+                <div class="form-group">
+                  <label for="bmi-height-input">Height (cm)</label>
+                  <input type="number" id="bmi-height-input" class="form-input" placeholder="e.g. 175" value="175" min="100" max="250" required />
+                </div>
+                <div class="form-group">
+                  <label for="bmi-weight-input">Weight (kg)</label>
+                  <input type="number" id="bmi-weight-input" class="form-input" placeholder="e.g. 70" value="70" min="30" max="250" required />
+                </div>
+              </div>
+
+              <div class="calc-form-row">
+                <div class="form-group">
+                  <label for="bmi-age-input">Age (Years)</label>
+                  <input type="number" id="bmi-age-input" class="form-input" value="21" min="16" max="99" required />
+                </div>
+                <div class="form-group">
+                  <label for="bmi-frame-select">Body Frame / Build</label>
+                  <select id="bmi-frame-select" class="form-select">
+                    <option value="medium">Medium Frame (Standard)</option>
+                    <option value="small">Small / Slender Frame (-5%)</option>
+                    <option value="large">Broad / Athletic Frame (+5%)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Calculate Calibrated BMI</button>
+            </form>
+
+            <div class="calc-result-box" id="bmi-result-display" style="display: none;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div style="display: flex; align-items: baseline; gap: 0.65rem;">
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">Calculated BMI:</span>
+                  <strong style="font-size: 2.2rem; color: var(--primary);" id="bmi-score-number">22.9</strong>
+                </div>
+                <span class="score-tier-badge badge-green" id="bmi-category-badge">Healthy Male Range</span>
+              </div>
+
+              <!-- Visual BMI Gauge Bar -->
+              <div class="bmi-gauge-bar-wrapper">
+                <div class="bmi-gauge-bar">
+                  <div class="gauge-segment under" title="Underweight"></div>
+                  <div class="gauge-segment normal" title="Healthy"></div>
+                  <div class="gauge-segment over" title="Overweight"></div>
+                  <div class="gauge-segment obese" title="Obese"></div>
+                  <div class="bmi-gauge-marker" id="bmi-gauge-marker"></div>
+                </div>
+                <div class="bmi-gauge-labels">
+                  <span id="label-under-val">Under (&lt;19.5)</span>
+                  <span id="label-normal-val">Healthy</span>
+                  <span id="label-over-val">Over (25-30)</span>
+                  <span id="label-obese-val">Obese (30+)</span>
+                </div>
+              </div>
+
+              <!-- Gender-Specific Health Metrics Grid -->
+              <div class="vitals-stats-grid">
+                <div class="vitals-stat-card">
+                  <span class="vitals-stat-label">Optimal Weight for Height</span>
+                  <strong class="vitals-stat-val" id="bmi-ideal-weight-range">59.7 – 76.3 kg</strong>
+                  <span class="vitals-stat-sub" id="bmi-ideal-midpoint">Devine IBW: ~70.5 kg</span>
+                </div>
+                <div class="vitals-stat-card">
+                  <span class="vitals-stat-label">Estimated Body Fat %</span>
+                  <strong class="vitals-stat-val" id="bmi-bodyfat-est">~15.6%</strong>
+                  <span class="vitals-stat-sub" id="bmi-bodyfat-category">Fitness Level</span>
+                </div>
+                <div class="vitals-stat-card">
+                  <span class="vitals-stat-label">Basal Metabolism (BMR)</span>
+                  <strong class="vitals-stat-val" id="bmi-bmr-est">1,688 kcal/day</strong>
+                  <span class="vitals-stat-sub">Resting Energy Burn</span>
+                </div>
+              </div>
+
+              <p id="bmi-advice-text" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-top: 0.75rem;"></p>
+            </div>
+          </div>
+
+          <!-- Hydration Calculator -->
+          <div class="calc-card">
+            <div class="card-title-bar">
+              <span style="font-size: 1.5rem;">💧</span>
+              <div>
+                <h3>Study & Workout Hydration Target</h3>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Gender-calibrated daily water intake to prevent brain fog & fatigue</span>
+              </div>
+            </div>
+
+            <form id="hydration-calculator-form">
+              <!-- Gender / Biological Sex Calibration -->
+              <div class="form-group">
+                <label>Biological Sex Calibration:</label>
+                <div class="gender-toggle-wrap">
+                  <button type="button" class="gender-toggle-btn active" id="btn-hydration-male" data-gender="male">
+                    <span>👨</span>
+                    <span>Male</span>
+                  </button>
+                  <button type="button" class="gender-toggle-btn" id="btn-hydration-female" data-gender="female">
+                    <span>👩</span>
+                    <span>Female</span>
+                  </button>
+                </div>
+                <input type="hidden" id="hydration-gender-input" value="male" />
+              </div>
+
+              <div class="calc-form-row">
+                <div class="form-group">
+                  <label for="hydration-weight">Body Weight (kg)</label>
+                  <input type="number" id="hydration-weight" class="form-input" value="70" min="30" max="200" />
+                </div>
+                <div class="form-group">
+                  <label for="hydration-activity">Gym / Sports (Mins/Day)</label>
+                  <input type="number" id="hydration-activity" class="form-input" value="45" min="0" max="240" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="hydration-study">Sedentary Study Hours (Hours/Day)</label>
+                <input type="number" id="hydration-study" class="form-input" value="6" min="1" max="18" />
+              </div>
+              <button type="submit" class="btn btn-secondary" style="width: 100%;">Calculate Water Goal</button>
+            </form>
+
+            <div class="calc-result-box" id="hydration-result-display" style="display: none;">
+              <div style="margin-bottom: 0.35rem;">
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Your Daily Optimal Water Intake:</span>
+                <strong style="display: block; font-size: 1.85rem; color: var(--accent-teal);" id="hydration-target-litres">3.1 Litres / Day</strong>
+              </div>
+              <p id="hydration-target-glasses" style="font-size: 0.875rem; color: var(--text-secondary); font-weight: 500;"></p>
+              <div id="hydration-gender-tip" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.45;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Upcoming Health Drives & FAQs
+         ========================================================================== -->
+    <section class="section-padding" id="faqs">
+      <div class="container">
+        <!-- Upcoming Health Drives -->
+        <div class="section-header">
+          <span class="section-badge">Campus Community Wellness</span>
+          <h2 class="section-title">Upcoming Health Drives & Workshops</h2>
+          <p class="section-subtitle">
+            Participate in free seasonal immunization drives, blood donation camps, and therapy animal sessions.
+          </p>
+        </div>
+
+        <div class="health-drives-grid" id="health-drives-grid"></div>
+
+        <!-- FAQs Accordion -->
+        <div class="section-header" style="margin-top: 5rem;">
+          <span class="section-badge">Student Answers</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">
+            Everything you need to know about student health fee coverage, confidentiality, sick excuses, and late-night emergencies.
+          </p>
+        </div>
+
+        <div class="faqs-accordion-container" id="faqs-accordion-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       Footer
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 1rem; color: white;">
+            <div class="brand-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <span class="brand-name">Campus Care</span>
+          </div>
+          <p>
+            The official campus health, medical and psychological services division. Providing barrier-free, equitable, and compassionate care to over 18,000 university students and faculty.
+          </p>
+          <div class="footer-emergency-box">
+            🚨 <strong>24/7 Gate 2 Emergency Bay:</strong> Follow red signs behind Student Union, Building 12.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Clinical Services</h4>
+          <ul class="footer-links">
+            <li><a href="#professionals">General Outpatient Triage</a></li>
+            <li><a href="#mindcare">MindCare Mental Counseling</a></li>
+            <li><a href="#professionals">Sports Physical Therapy</a></li>
+            <li><a href="#professionals">Women's Reproductive Health</a></li>
+            <li><a href="#pharmacy">Campus Prescription Dispensary</a></li>
+            <li><a href="#campus-map">AED Emergency Stations</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Student Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#faqs">Medical Leave Excuse Policy</a></li>
+            <li><a href="#faqs">HIPAA Privacy & Confidentiality</a></li>
+            <li><a href="#calculators">Student BMI & Water Target</a></li>
+            <li><a href="#mindcare">PHQ-4 Stress Self-Check</a></li>
+            <li><a href="#professionals">Campus Healthcare Practitioners</a></li>
+            <li><a href="#" class="trigger-sos-btn">SOS Campus First Responder</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Clinical Portal</h4>
+          <ul class="footer-links">
+            <li><a href="/admin.html" style="color: #38bdf8; font-weight: 700;">⚙️ Staff & Admin Portal</a></li>
+            <li><a href="/login.html?role=admin">🛡️ Practitioner Sign In</a></li>
+            <li><a href="#services">Clinical Departments</a></li>
+            <li><a href="#campus-map">AED & First Aid Stations</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 University Health Services • Campus Health & Wellness Portal • All records FERPA & HIPAA protected.</div>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <a href="/admin.html">Staff Console</a>
+          <a href="#">Patient Rights</a>
+          <a href="#">Confidentiality</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Report Incident</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODALS & INTERACTIVE OVERLAYS
+       ========================================================================== -->
+
+  <!-- 1. Emergency SOS Alert Modal -->
+  <div class="modal-overlay" id="sos-modal" role="dialog" aria-modal="true" aria-labelledby="sos-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header" style="background: var(--emergency); color: white;">
+        <h3 id="sos-modal-title" style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+          🚨 CAMPUS EMERGENCY SOS DISPATCH
+        </h3>
+        <button type="button" class="modal-close-btn" id="close-sos-modal" style="color: white; background: rgba(255,255,255,0.2);">✕</button>
+      </div>
+
+      <div class="modal-body sos-modal-content">
+        <!-- Stage 1: Setup Alert -->
+        <div id="sos-stage-initial">
+          <div class="sos-alert-ring-pulse">🚨</div>
+          <h3>Trigger Immediate First Responder</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            This sends a high-priority GPS alarm to Campus Paramedics, Police Safety Officers, and Medical Center Staff.
+          </p>
+
+          <div class="form-group" style="text-align: left; margin-bottom: 1rem;">
+            <label for="sos-location-select">Your Current Campus Location:</label>
+            <select id="sos-location-select" class="form-select">
+              <option value="North Pioneer Commons Dorm, Block B">North Pioneer Commons Dorm, Block B</option>
+              <option value="Central Memorial Library, 2nd Floor Study Hall">Central Memorial Library, 2nd Floor Study Hall</option>
+              <option value="Science & Engineering Quad, Turing Lab 3">Science & Engineering Quad, Turing Lab 3</option>
+              <option value="Student Union & Food Court, Level 1">Student Union & Food Court, Level 1</option>
+              <option value="Athletics Complex & Gymnasium">Athletics Complex & Gymnasium</option>
+              <option value="Other / GPS Coordinates Live Link">Other (Use Auto-GPS Location)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="text-align: left; margin-bottom: 1.5rem;">
+            <label for="sos-nature-select">Nature of Crisis:</label>
+            <select id="sos-nature-select" class="form-select">
+              <option value="Severe Physical Injury / Bleeding / Fall">Severe Physical Injury / Bleeding / Fall</option>
+              <option value="Unconscious / Fainting / Seizure">Unconscious / Fainting / Seizure</option>
+              <option value="Severe Allergic Reaction / Anaphylaxis">Severe Allergic Reaction / Anaphylaxis</option>
+              <option value="Asthma Attack / Breathing Difficulty">Asthma Attack / Breathing Difficulty</option>
+              <option value="Acute Mental Health / Panic Crisis">Acute Mental Health / Panic Crisis</option>
+              <option value="Other Medical Urgent Need">Other Medical Urgent Need</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-emergency btn-lg" id="start-sos-alert-btn" style="width: 100%; font-size: 1.15rem;">
+            🔴 TRANSMIT EMERGENCY ALARM
+          </button>
+        </div>
+
+        <!-- Stage 2: Countdown with Sound Siren -->
+        <div id="sos-stage-countdown" style="display: none;">
+          <div class="sos-countdown-circle" id="sos-countdown-number">4</div>
+          <h3>TRANSMITTING DISPATCH...</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Sirens activated. Sending coordinates to nearest patrol unit.</p>
+          <div style="margin: 1.5rem 0; display: flex; gap: 0.5rem; justify-content: center;">
+            <button type="button" class="btn btn-secondary btn-sm" id="toggle-siren-btn">
+              <span>🔊 Siren Active (Click to Mute)</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="cancel-sos-btn">
+              Cancel False Alarm
+            </button>
+          </div>
+        </div>
+
+        <!-- Stage 3: Dispatched & Live ETA Tracking -->
+        <div id="sos-stage-dispatched" style="display: none;">
+          <div style="font-size: 3rem;">🚑</div>
+          <h3 style="color: var(--emergency);">CAMPUS PARAMEDIC DISPATCHED</h3>
+          
+          <div class="dispatch-confirmed-box">
+            <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Estimated Arrival:</div>
+            <div class="dispatch-eta-highlight" id="dispatch-eta-timer">02:50</div>
+            <p><strong>Assigned Unit:</strong> Mobile Ambulance Unit 2 (West Wing Bay)</p>
+            <p><strong>Target:</strong> <span id="dispatch-assigned-location">North Pioneer Commons</span></p>
+            <p><strong>Flagged Reason:</strong> <span id="dispatch-assigned-nature">Medical Trauma</span></p>
+          </div>
+
+          <div style="background: var(--primary-light); padding: 1rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1.5rem; text-align: left;">
+            ℹ️ <strong>While waiting:</strong> Keep patient calm. If unconscious and breathing, place in recovery position. Do not offer food or drink. Campus Blue Light beacon at your nearest corner has been illuminated.
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; justify-content: center;">
+            <a href="tel:5550190911" class="btn btn-emergency">
+              📞 Direct Dispatcher Call
+            </a>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('sos-modal').classList.remove('active');">
+              Close Window (Stays Active)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Anonymous Peer Support Chat Modal -->
+  <div class="modal-overlay" id="peer-chat-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.4rem;">🌿</span>
+          <div>
+            <h3>MindCare Anonymous Peer Chat</h3>
+            <span style="font-size: 0.75rem; color: #10b981;">● Peer Counselor Active Now • 100% Private</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="close-peer-chat-modal">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 0;">
+        <div class="peer-chat-container">
+          <div class="peer-chat-messages" id="peer-chat-messages">
+            <div class="chat-bubble peer-bubble">
+              <div class="bubble-sender">🌿 Campus Peer Counselor</div>
+              <div class="bubble-content">
+                Hello Alex! I am a trained fellow student here to listen without judgment. Whether you're stressed about upcoming midterms, feeling lonely, or just need to vent, this space is completely safe and anonymous. How are you feeling today?
+              </div>
+            </div>
+          </div>
+          <form class="peer-chat-form" id="peer-chat-form">
+            <input type="text" id="peer-chat-input" placeholder="Type a message to your peer supporter..." autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-sm">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. First Aid & CPR Guide Modal -->
+  <div class="modal-overlay" id="first-aid-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header" style="background: var(--primary); color: white;">
+        <h3 style="color: white;">Campus First Aid & CPR Quick Guide</h3>
+        <button type="button" class="modal-close-btn" id="close-first-aid-modal" style="color: white; background: rgba(255,255,255,0.2);">✕</button>
+      </div>
+      <div class="modal-body" style="font-size: 0.925rem; line-height: 1.6;">
+        <h4 style="color: var(--emergency); margin-bottom: 0.5rem;">1. Hands-Only CPR for Sudden Cardiac Arrest</h4>
+        <ol style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Check responsiveness: Tap shoulders and shout "Are you okay?".</li>
+          <li>Call 911 or hit Campus SOS immediately. Direct someone to fetch the nearest AED station.</li>
+          <li>Push hard and fast in the center of the chest to the beat of "Stayin' Alive" (100-120 beats/min). Push at least 2 inches deep.</li>
+        </ol>
+
+        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">2. Using the Campus Automated Defibrillator (AED)</h4>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
+          <li>Turn on the AED unit. Visual and vocal prompts will guide you.</li>
+          <li>Apply sticky electrode pads to bare chest as shown on the diagrams.</li>
+          <li>AED automatically analyzes heart rhythm. Stand clear if a shock is advised.</li>
+        </ul>
+
+        <h4 style="color: var(--accent-teal); margin-bottom: 0.5rem;">3. Severe Bleeding Control</h4>
+        <p>Apply firm, direct pressure with sterile gauze or clean cloth. Elevate the wounded limb if possible. Keep constant pressure until campus medical staff arrives.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Dispensary Pickup Token Modal -->
+  <div class="modal-overlay" id="pharmacy-token-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Fast Dispensary Pickup Token</h3>
+        <button type="button" class="modal-close-btn" id="close-pharmacy-token-modal">✕</button>
+      </div>
+      <div class="modal-body" style="text-align: center; padding: 2rem 1.5rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎫</div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Show this 4-digit code at the Health Center Block C Dispensary Counter</p>
+        
+        <div style="background: var(--bg-tertiary); border: 2px dashed var(--accent-teal); border-radius: var(--radius-lg); padding: 1.25rem; margin: 1.25rem 0;">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Medication / Kit:</div>
+          <strong id="token-med-name" style="font-size: 1.2rem; color: var(--text-primary); display: block; margin-bottom: 0.5rem;">Paracetamol 500mg</strong>
+          <div style="font-size: 2.5rem; font-family: monospace; font-weight: 800; color: var(--accent-teal); letter-spacing: 0.1em;" id="dispensary-token-code">DISP-4821</div>
+          <div style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;" id="token-validity-time">Valid for 4 hours</div>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Your order has been queued at the rapid-dispense counter. No queue waiting required. Simply scan your Student ID.
+        </p>
+
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('pharmacy-token-modal').classList.remove('active');">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Student Digital Health Card Modal -->
+  <div class="modal-overlay" id="student-portal-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3>University Student Health Portal</h3>
+        <button type="button" class="modal-close-btn" id="close-student-portal-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Physical Digital Health Card Preview -->
+        <div id="digital-health-id-card"></div>
+
+        <!-- Edit Profile Drawer -->
+        <h4 style="margin: 1.5rem 0 0.85rem;">Update Emergency Profile Details</h4>
+        <form id="student-edit-profile-form">
+          <div class="calc-form-row">
+            <div class="form-group">
+              <label for="edit-profile-name">Student Full Name</label>
+              <input type="text" id="edit-profile-name" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="edit-profile-id">University ID</label>
+              <input type="text" id="edit-profile-id" class="form-input" />
+            </div>
+          </div>
+          <div class="calc-form-row">
+            <div class="form-group">
+              <label for="edit-profile-blood">Blood Group</label>
+              <input type="text" id="edit-profile-blood" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="edit-profile-allergies">Known Allergies / Flags</label>
+              <input type="text" id="edit-profile-allergies" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="edit-profile-emergency">Emergency Primary Contact & Phone</label>
+            <input type="text" id="edit-profile-emergency" class="form-input" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Save Health Profile</button>
+        </form>
+
+        <!-- Portal Session Actions -->
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            Status: <strong id="portal-session-status" style="color: var(--accent-emerald);">Active Student Session</strong>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <a href="/login.html" class="btn btn-secondary btn-sm" id="student-switch-account-btn">
+              🔄 Switch User
+            </a>
+            <button type="button" class="btn btn-secondary btn-sm" id="student-portal-logout-btn" style="color: var(--emergency); border-color: rgba(239, 68, 68, 0.3);">
+              🚪 Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Global Search Results Modal -->
+  <div class="modal-overlay" id="global-search-results-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="search-modal-title">Search Results</h3>
+        <button type="button" class="modal-close-btn" id="close-global-search-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="global-search-results-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript App Entry -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

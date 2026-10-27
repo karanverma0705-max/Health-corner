@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Care Admin — University Health & Wellness Portal</title>
+  <link rel="stylesheet" href="/src/admin.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>" />
+</head>
+<body>
+
+  <!-- Top Administration Header -->
+  <header class="admin-navbar">
+    <div class="admin-nav-inner">
+      <a href="/admin.html" class="admin-brand">
+        <div class="brand-icon-box">🏥</div>
+        <div>
+          <div class="admin-brand-title">
+            Campus Care <span class="admin-portal-tag">Admin Console</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--adm-text-muted);">University Health & Wellness Portal • Staff & Database Console</div>
+        </div>
+      </a>
+
+      <div class="admin-nav-actions">
+        <!-- Live SQLite Status -->
+        <div class="db-live-badge" id="db-connection-status" title="SQLite Database Status">
+          <span class="pulse-dot-green"></span>
+          <span>Connecting to SQLite...</span>
+        </div>
+
+        <!-- Download Database File -->
+        <a href="/api/db/download" class="btn-adm btn-adm-secondary" title="Direct download of SQLite database file" download>
+          💾 Download DB (.sqlite)
+        </a>
+
+        <!-- Return to Student Portal -->
+        <a href="/" class="btn-adm btn-adm-primary" title="Return to student facing portal">
+          🌐 View Student Portal →
+        </a>
+
+        <!-- Logged in Admin User Info -->
+        <div class="admin-user-pill" id="admin-user-info-pill" style="display: flex; align-items: center; gap: 0.45rem; background: var(--adm-card); border: 1px solid var(--adm-border); padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+          <span style="font-size: 0.95rem;">🛡️</span>
+          <span id="admin-current-user-name">Dr. Sarah Jenkins</span>
+        </div>
+
+        <!-- Sign Out Button -->
+        <button type="button" class="btn-adm btn-adm-secondary" id="admin-logout-btn" title="Sign out of Administrator Session">
+          🚪 Sign Out
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button type="button" class="theme-toggle-btn" id="adm-theme-toggle" aria-label="Toggle theme">
+          <span id="adm-theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <!-- Title Row -->
+    <div class="admin-title-row">
+      <div>
+        <h1 class="admin-heading-title">Healthcare Operations Dashboard</h1>
+        <p class="admin-subtitle">Live control over patient bookings & appointments, clinic staff availability, dispensary inventory, and SQLite tables.</p>
+      </div>
+      <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+        <button type="button" class="btn-adm btn-adm-primary" id="open-book-modal-btn">
+          📅 Book / Schedule Appointment
+        </button>
+        <button type="button" class="btn-adm btn-adm-secondary" id="open-walkin-modal-btn">
+          ➕ Urgent Walk-in
+        </button>
+        <button type="button" class="btn-adm btn-adm-secondary" id="open-add-med-modal-btn">
+          💊 Add Medicine to Stock
+        </button>
+      </div>
+    </div>
+
+    <!-- 5 Live KPI Metrics Grid -->
+    <div class="admin-kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon blue">📅</div>
+        <div class="kpi-meta">
+          <div class="kpi-label">Bookings & Appointments</div>
+          <div class="kpi-value" id="kpi-appointments-count">0</div>
+          <div class="kpi-subtext" id="kpi-appointments-sub">Loading...</div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon emerald">🩺</div>
+        <div class="kpi-meta">
+          <div class="kpi-label">Doctors On Duty</div>
+          <div class="kpi-value" id="kpi-doctors-count">0 / 6</div>
+          <div class="kpi-subtext" id="kpi-doctors-sub">Active today</div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon amber">💊</div>
+        <div class="kpi-meta">
+          <div class="kpi-label">Dispensary Stock</div>
+          <div class="kpi-value" id="kpi-pharmacy-count">0</div>
+          <div class="kpi-subtext" id="kpi-pharmacy-sub">0 low stock</div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon rose">🚨</div>
+        <div class="kpi-meta">
+          <div class="kpi-label">Emergency SOS</div>
+          <div class="kpi-value" id="kpi-sos-count">0</div>
+          <div class="kpi-subtext" id="kpi-sos-sub">0 active alerts</div>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon purple">🗄️</div>
+        <div class="kpi-meta">
+          <div class="kpi-label">SQLite Database</div>
+          <div class="kpi-value">WAL Mode</div>
+          <div class="kpi-subtext">9 tables active</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="admin-tabs-nav" role="tablist">
+      <button class="admin-tab-btn active" data-tab="tab-appointments" role="tab">
+        📅 Bookings & Appointments <span class="tab-badge" id="tab-badge-apt">Live</span>
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-doctors" role="tab">
+        🩺 Doctors & Specialists
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-pharmacy" role="tab">
+        💊 Pharmacy & Stock
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-emergency" role="tab">
+        🚨 Emergency SOS Logs
+      </button>
+      <button class="admin-tab-btn" data-tab="tab-database" role="tab">
+        🗄️ SQLite Database Inspector
+      </button>
+    </div>
+
+    <!-- Tab 1: Appointments Management -->
+    <div class="admin-tab-panel active" id="tab-appointments" role="tabpanel">
+      <div class="admin-card">
+        <div class="admin-toolbar">
+          <div class="toolbar-search">
+            <span>🔍</span>
+            <input type="text" id="search-appointments" placeholder="Search bookings by student name, ID, or doctor..." />
+          </div>
+          <div class="toolbar-filters">
+            <button class="filter-pill apt-filter-pill active" data-filter="all">All Bookings & Appointments</button>
+            <button class="filter-pill apt-filter-pill" data-filter="confirmed">Confirmed</button>
+            <button class="filter-pill apt-filter-pill" data-filter="completed">Completed</button>
+            <button class="filter-pill apt-filter-pill" data-filter="cancelled">Cancelled</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Booking / Pass ID</th>
+                <th>Student Patient</th>
+                <th>Healthcare Practitioner</th>
+                <th>Scheduled Slot</th>
+                <th>Reason & Notes</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointments-table-body">
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 2rem;">Loading appointments from SQLite...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Doctors & Healthcare Team -->
+    <div class="admin-tab-panel" id="tab-doctors" role="tabpanel">
+      <div class="admin-card">
+        <div style="padding: 1.25rem; border-bottom: 1px solid var(--adm-border); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 style="margin-bottom: 0.2rem;">Healthcare Staff Availability & Schedule Control</h3>
+            <p style="font-size: 0.85rem; color: var(--adm-text-muted);">Toggle whether doctors are on duty today or update their consultation time slots directly in SQLite.</p>
+          </div>
+        </div>
+        <div class="adm-doctors-grid" id="admin-doctors-list">
+          <p style="padding: 2rem;">Loading doctors from database...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Pharmacy & Stock -->
+    <div class="admin-tab-panel" id="tab-pharmacy" role="tabpanel">
+      <div class="admin-card">
+        <div class="admin-toolbar">
+          <div class="toolbar-search">
+            <span>🔍</span>
+            <input type="text" id="search-pharmacy" placeholder="Search medication name or indication..." />
+          </div>
+          <div style="font-size: 0.85rem; color: var(--adm-text-muted);">
+            Use <strong>- / +</strong> buttons to adjust live inventory units in SQLite.
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Medicine / Supply</th>
+                <th>Category</th>
+                <th>Quantity in Stock</th>
+                <th>Stock Status</th>
+                <th>Cost to Student</th>
+                <th>Tier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pharmacy-table-body">
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 2rem;">Loading pharmacy inventory...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Emergency SOS Dispatch Center -->
+    <div class="admin-tab-panel" id="tab-emergency" role="tabpanel">
+      <div class="admin-card">
+        <div style="padding: 1.25rem; border-bottom: 1px solid var(--adm-border); background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), transparent);">
+          <h3 style="color: var(--adm-rose); margin-bottom: 0.25rem;">🚨 Campus Emergency SOS Dispatch Log</h3>
+          <p style="font-size: 0.85rem; color: var(--adm-text-muted);">High-priority incident log recorded from students' mobile panic alarms.</p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Incident ID</th>
+                <th>Campus Coordinates / Location</th>
+                <th>Nature of Medical Crisis</th>
+                <th>Assigned Unit</th>
+                <th>Dispatch Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="sos-table-body">
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem;">Loading emergency alerts...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Database & SQL Management -->
+    <div class="admin-tab-panel" id="tab-database" role="tabpanel">
+      <div class="admin-card">
+        <div class="db-info-hero" id="db-overview-info">
+          <div>
+            <h3>🗄️ SQLite Database File & Connection</h3>
+            <p style="color: var(--adm-text-muted); font-size: 0.85rem;">Connecting...</p>
+          </div>
+        </div>
+
+        <div class="db-table-chips" id="db-table-chips-list"></div>
+
+        <div id="db-table-preview-content"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Patient Booking & Walk-in Modal -->
+  <div class="adm-modal-overlay" id="walkin-modal">
+    <div class="adm-modal">
+      <div class="adm-modal-header">
+        <h3 id="walkin-modal-title">Book Patient Appointment or Walk-in</h3>
+        <button type="button" class="btn-adm btn-adm-secondary btn-adm-sm" id="close-walkin-modal">✕</button>
+      </div>
+      <form id="walkin-form" class="adm-modal-body">
+        <div class="form-group-adm">
+          <label>Booking Mode</label>
+          <div style="display: flex; gap: 1.25rem; align-items: center; padding: 0.35rem 0;">
+            <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; text-transform: none; font-weight: 600;">
+              <input type="radio" name="admin-apt-mode" id="admin-mode-scheduled" value="scheduled" checked />
+              <span>📅 Scheduled Booking</span>
+            </label>
+            <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; text-transform: none; font-weight: 600;">
+              <input type="radio" name="admin-apt-mode" id="admin-mode-walkin" value="walkin" />
+              <span>⚡ Urgent Walk-in</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group-adm">
+          <label for="walkin-name">Student Full Name</label>
+          <input type="text" id="walkin-name" class="adm-input" placeholder="e.g. Jordan Smith" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="walkin-id">University Student ID</label>
+          <input type="text" id="walkin-id" class="adm-input" placeholder="e.g. U-2024-99120" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="walkin-email">Campus Email</label>
+          <input type="email" id="walkin-email" class="adm-input" placeholder="e.g. j.smith@campus.edu" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="walkin-doctor-select">Assign Doctor / Triage Room</label>
+          <select id="walkin-doctor-select" class="adm-input"></select>
+        </div>
+        <div id="admin-scheduled-fields" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <div class="form-group-adm" style="flex: 1; min-width: 170px;">
+            <label for="walkin-date">Appointment Date</label>
+            <input type="date" id="walkin-date" class="adm-input" />
+          </div>
+          <div class="form-group-adm" style="flex: 1; min-width: 170px;">
+            <label for="walkin-time">Time Slot</label>
+            <input type="text" id="walkin-time" class="adm-input" placeholder="e.g. 10:00 AM" />
+          </div>
+        </div>
+        <div class="form-group-adm">
+          <label for="walkin-reason">Chief Medical Complaint / Symptoms</label>
+          <input type="text" id="walkin-reason" class="adm-input" placeholder="e.g. High fever, sprained wrist, migraine..." required />
+        </div>
+        <div class="form-group-adm">
+          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; text-transform: none;">
+            <input type="checkbox" id="walkin-confidential" checked />
+            <span>Enforce Strict FERPA/HIPAA Medical Privacy</span>
+          </label>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.65rem; margin-top: 1.5rem;">
+          <button type="button" class="btn-adm btn-adm-secondary" onclick="document.getElementById('walkin-modal').classList.remove('active');">Cancel</button>
+          <button type="submit" class="btn-adm btn-adm-primary">Save to SQLite Database ✓</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Medicine Modal -->
+  <div class="adm-modal-overlay" id="add-med-modal">
+    <div class="adm-modal">
+      <div class="adm-modal-header">
+        <h3>Add Medication to Dispensary Inventory</h3>
+        <button type="button" class="btn-adm btn-adm-secondary btn-adm-sm" id="close-add-med-modal">✕</button>
+      </div>
+      <form id="add-med-form" class="adm-modal-body">
+        <div class="form-group-adm">
+          <label for="med-name-input">Medication Name & Strength</label>
+          <input type="text" id="med-name-input" class="adm-input" placeholder="e.g. Amoxicillin 500mg" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="med-category-select">Category</label>
+          <select id="med-category-select" class="adm-input">
+            <option value="Pain & Fever">Pain & Fever</option>
+            <option value="Allergy & Cold">Allergy & Cold</option>
+            <option value="First Aid & Wound Care">First Aid & Wound Care</option>
+            <option value="Reproductive Wellness">Reproductive Wellness</option>
+            <option value="Hydration & Digestion">Hydration & Digestion</option>
+            <option value="Respiratory">Respiratory</option>
+            <option value="General Health">General Health</option>
+          </select>
+        </div>
+        <div class="form-group-adm">
+          <label for="med-qty-input">Initial Units in Stock</label>
+          <input type="number" id="med-qty-input" class="adm-input" value="150" min="1" max="10000" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="med-cost-input">Cost to Student</label>
+          <input type="text" id="med-cost-input" class="adm-input" value="Free with Student ID" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="med-dosage-input">Dosage Instructions</label>
+          <input type="text" id="med-dosage-input" class="adm-input" placeholder="e.g. 1 capsule every 8 hours with water" required />
+        </div>
+        <div class="form-group-adm">
+          <label for="med-indications-input">Indications / Uses</label>
+          <input type="text" id="med-indications-input" class="adm-input" placeholder="e.g. Bacterial infection, strep throat" required />
+        </div>
+        <div class="form-group-adm">
+          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; text-transform: none;">
+            <input type="checkbox" id="med-prescription-check" />
+            <span>Requires Clinic Doctor Prescription</span>
+          </label>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.65rem; margin-top: 1.5rem;">
+          <button type="button" class="btn-adm btn-adm-secondary" onclick="document.getElementById('add-med-modal').classList.remove('active');">Cancel</button>
+          <button type="submit" class="btn-adm btn-adm-primary">Save to SQLite Database ✓</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="adm-toast-container" class="adm-toast-container"></div>
+
+  <!-- Script Module -->
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>
